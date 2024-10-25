@@ -18,6 +18,7 @@ class ProductApplicationTests {
 
     @Test
     void SmokeTest() {
+		assert true;
     }
 
     @Test
