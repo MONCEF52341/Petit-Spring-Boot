@@ -5,11 +5,31 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 
 @Import(TestcontainersConfiguration.class)
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ProductApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void CreateProductTest() {
+    }
+
+    @Test
+    void ListProductTest() {
+    }
+
+    @Test
+    void SmokeTest() {
+    }
+
+    @Test
+    void XTest() {
+    }
+
+    @Test
+    void CompressionTest() {
+    }
+
+    @Test
+    void SurchargeTest() {
+    }
 
 }
