@@ -1,3 +1,3 @@
 # Projet Petit Spring Boot
-![Architecture](./architecture.png)
+![Architecture](./architecture.svg)
 
