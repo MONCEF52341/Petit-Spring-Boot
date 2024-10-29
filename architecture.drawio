@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64; rv:131.0) Gecko/20100101 Firefox/131.0" version="24.8.3">
   <diagram name="Page-1" id="mD85pDy1IY2kpk20CAVG">
-    <mxGraphModel dx="3563" dy="2193" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="3563" dy="1024" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -180,15 +180,6 @@
         </mxCell>
         <mxCell id="o-m9nE614pwTkin6wgCo-26" value="Il semble que ce token soit soit invalide ou expiré,&lt;br&gt; en tout cas je ne peux pas authentifier ce client" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=#FF6666;fontSize=18;" vertex="1" connectable="0" parent="1">
           <mxGeometry x="-679.9956764641131" y="665.003344078425" as="geometry" />
-        </mxCell>
-        <mxCell id="o-m9nE614pwTkin6wgCo-29" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/640px-Vue.js_Logo_2.svg.png;" vertex="1" parent="1">
-          <mxGeometry x="-350" y="-190" width="230.63" height="200" as="geometry" />
-        </mxCell>
-        <mxCell id="o-m9nE614pwTkin6wgCo-30" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endWidth=66.25;endSize=12.2625;width=36.25;" edge="1" parent="1" source="o-m9nE614pwTkin6wgCo-29" target="u823IT9AsLEfCYnBtaDn-6">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="-140" y="-10" as="sourcePoint" />
-            <mxPoint x="-90" y="-60" as="targetPoint" />
-          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
