@@ -15,13 +15,13 @@ Retourne la liste des produits.
 
 ```json
 [
-    {
-        "id": "671e9b3ac70b062d31ce1908",
-        "name": "Produit 15",
-        "description": "Description",
-        "skuCode": "15",
-        "price": 12
-    }
+  {
+    "id": "671e9b3ac70b062d31ce1908",
+    "name": "Produit 15",
+    "description": "Description",
+    "skuCode": "15",
+    "price": 12
+  }
 ]
 ```
 
@@ -33,10 +33,10 @@ Ajoute un nouveau produit à la liste.
 
 ```json
 {
-    "name": "Produit 15",
-    "description": "Description",
-    "skuCode": "15",
-    "price": 12
+  "name": "Produit 15",
+  "description": "Description",
+  "skuCode": "15",
+  "price": 12
 }
 ```
 
@@ -44,11 +44,11 @@ Ajoute un nouveau produit à la liste.
 
 ```json
 {
-    "id": "671e9b3ac70b062d31ce1908",
-    "name": "Produit 15",
-    "description": "Description",
-    "skuCode": "15",
-    "price": 12
+  "id": "671e9b3ac70b062d31ce1908",
+  "name": "Produit 15",
+  "description": "Description",
+  "skuCode": "15",
+  "price": 12
 }
 ```
 

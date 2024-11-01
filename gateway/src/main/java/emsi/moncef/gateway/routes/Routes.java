@@ -73,10 +73,11 @@ public class Routes {
                         URI.create("forward:/fallback")))
                 .build();
     }
+
     @Bean
-    public RouterFunction<ServerResponse> fallbackRoute(){
+    public RouterFunction<ServerResponse> fallbackRoute() {
         return route("fallbackRoute")
-                .GET("/fallback",request -> ServerResponse
+                .GET("/fallback", request -> ServerResponse
                         .status(HttpStatus.SERVICE_UNAVAILABLE)
                         .body("Service Indisponible, veuillez réessayer plus tard"))
                 .build();

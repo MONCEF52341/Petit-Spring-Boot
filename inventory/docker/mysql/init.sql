@@ -1,2 +1,2 @@
 CREATE
-DATABASE IF NOT EXISTS inventory;
+    DATABASE IF NOT EXISTS inventory;
