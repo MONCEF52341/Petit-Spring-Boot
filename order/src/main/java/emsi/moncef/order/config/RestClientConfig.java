@@ -11,7 +11,8 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 @Configuration
 public class RestClientConfig {
     @Value("${inventory.url}")
-    private String  inventoryServiceUrl;
+    private String inventoryServiceUrl;
+
     @Bean
     public InventoryClient inventoryClient() {
         RestClient restClient = RestClient.builder()

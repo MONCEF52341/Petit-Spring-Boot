@@ -2,7 +2,8 @@
 
 ## Description
 
-Ce microservice gère les produits pour un site e-commerce. Il utilise une base de données MongoDB et expose deux endpoints pour interagir avec les produits.
+Ce microservice gère les produits pour un site e-commerce. Il utilise une base de données MongoDB et expose deux
+endpoints pour interagir avec les produits.
 
 ## Endpoints
 

@@ -18,6 +18,7 @@ public class Routes {
                 .route(RequestPredicates.path("/api/product"), HandlerFunctions.http("http://localhost:8080"))
                 .build();
     }
+
     @Bean
     public RouterFunction<ServerResponse> productServiceSwaggerRoute() {
         return GatewayRouterFunctions.route("product_service_swagger")
@@ -25,6 +26,7 @@ public class Routes {
                 .filter(setPath("/v3/api-docs"))
                 .build();
     }
+
     @Bean
     public RouterFunction<ServerResponse> orderServiceRoute() {
         return GatewayRouterFunctions.route("order_service")
@@ -39,6 +41,7 @@ public class Routes {
                 .filter(setPath("/v3/api-docs"))
                 .build();
     }
+
     @Bean
     public RouterFunction<ServerResponse> inventoryServiceRoute() {
         return GatewayRouterFunctions.route("inventory_service")

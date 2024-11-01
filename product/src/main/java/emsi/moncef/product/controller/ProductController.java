@@ -2,9 +2,7 @@ package emsi.moncef.product.controller;
 
 import emsi.moncef.product.dto.ProductRequest;
 import emsi.moncef.product.dto.ProductResponse;
-import emsi.moncef.product.model.Product;
 import emsi.moncef.product.service.ProductService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

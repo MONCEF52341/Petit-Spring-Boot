@@ -17,7 +17,7 @@ public class OrderService {
     private final InventoryClient inventoryClient;
 
     public void placeOrder(OrderRequest orderRequest) {
-       var isProductInStock = inventoryClient.isInStock(orderRequest.skuCode(),orderRequest.quantity());
+        var isProductInStock = inventoryClient.isInStock(orderRequest.skuCode(), orderRequest.quantity());
         if (isProductInStock) {
             Order order = new Order();
             order.setOrderNumber(UUID.randomUUID().toString());
@@ -25,9 +25,8 @@ public class OrderService {
             order.setSkuCode(orderRequest.skuCode());
             order.setQuantity(orderRequest.quantity());
             orderRepository.save(order);
-        }
-        else {
-            throw new RuntimeException("Le produit "+ orderRequest.skuCode()+" n'est pas en stock");
+        } else {
+            throw new RuntimeException("Le produit " + orderRequest.skuCode() + " n'est pas en stock");
         }
     }
 }
