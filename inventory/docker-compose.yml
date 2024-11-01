@@ -1,6 +1,6 @@
 version: '4'
 services:
-  mysql:
+  inventory_mysql:
     image: mysql:8.3.0
     container_name: inventory_mysql
     environment:
@@ -8,5 +8,8 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./mysql:/var/lib/mysql
+      - inventory_mysql_data:/var/lib/mysql
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  inventory_mysql_data:
