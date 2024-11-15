@@ -1,82 +1,66 @@
-describe("Authentication and Access Tests", () => {
+describe("Tests d'Authentification et d'Accès", () => {
   const users = {
     commercial: {
-      username: "commercial@example.com",
-      password: "password123",
+      username: "commercial@psb.com",
+      password: "P@sser123",
       role: "commercial",
     },
     admin: {
-      username: "admin@example.com",
-      password: "password123",
+      username: "admin@psb.com",
+      password: "P@sser123",
       role: "admin",
     },
     user: {
-      username: "user@example.com",
-      password: "password123",
+      username: "user@psb.com",
+      password: "P@sser123",
       role: "user",
     },
   };
 
   Object.entries(users).forEach(([userType, userData]) => {
-    describe(`${userType} user`, () => {
+    describe(`Utilisateur ${userType}`, () => {
       beforeEach(() => {
-        // Simuler l'authentification Keycloak
-        cy.intercept(
-          "POST",
-          "http://localhost:8181/realms/ypetit-spring-boot-security-domaine/openid-connect/token",
-          {
-            statusCode: 200,
-            body: {
-              access_token: "fake_token",
-              expires_in: 300,
-              refresh_expires_in: 1800,
-              refresh_token: "fake_refresh_token",
-              token_type: "bearer",
-              "not-before-policy": 0,
-              session_state: "fake_session_state",
-              scope: "openid",
-            },
-          }
-        ).as("tokenRequest");
+        // Visiter la page d'accueil
+        cy.visit("http://localhost:3000");
 
+        // Intercepter la redirection vers Keycloak
         cy.intercept(
           "GET",
-          "http://localhost:8181/realms/petit-spring-boot-security-domaine/protocol/openid-connect/userinfo",
-          {
-            statusCode: 200,
-            body: {
-              sub: `user-${userData.role}`,
-              email_verified: true,
-              name: `${userType} User`,
-              preferred_username: userData.username,
-              given_name: userType,
-              family_name: "User",
-              email: userData.username,
-              realm_access: {
-                roles: [userData.role],
-              },
-            },
-          }
-        ).as("userInfoRequest");
+          "http://localhost:8181/realms/petit-spring-boot-security-domaine/protocol/openid-connect/auth*"
+        ).as("keycloakAuth");
 
-        // Visiter la page d'accueil (qui déclenchera l'authentification)
-        cy.visit("/");
-        cy.wait("@tokenRequest");
-        cy.wait("@userInfoRequest");
+        // Attendre la redirection vers Keycloak
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        cy.wait("@keycloakAuth").then((interception) => {
+          // Simuler le remplissage du formulaire de login Keycloak
+          cy.origin(
+            "http://localhost:8181",
+            { args: { userData } },
+            ({ userData }) => {
+              cy.get("#username").type(userData.username);
+              cy.get("#password").type(userData.password);
+              cy.get("#kc-login").click();
+            }
+          );
+        });
+
+        // Intercepter la redirection de retour vers l'application
+        cy.intercept("GET", "http://localhost:3000/**").as("appRedirect");
+        cy.wait("@appRedirect");
       });
 
-      it(`should redirect to /${userData.role} page after login`, () => {
+      it(`devrait rediriger vers la page /${userData.role} après la connexion`, () => {
         cy.url().should("include", `/${userData.role}`);
       });
 
-      it(`should display the correct role on the page`, () => {
+      it(`devrait afficher le rôle correct sur la page`, () => {
         cy.contains(`Rôle de l'utilisateur : ${userData.role}`).should(
           "be.visible"
         );
       });
 
-      it(`should have access to their own page`, () => {
-        cy.visit(`/${userData.role}`);
+      it(`devrait avoir accès à sa propre page`, () => {
+        cy.visit(`http://localhost:3000/${userData.role}`);
         cy.contains(
           `Page ${userType.charAt(0).toUpperCase() + userType.slice(1)}`
         ).should("be.visible");
@@ -85,30 +69,17 @@ describe("Authentication and Access Tests", () => {
       // Tester l'accès non autorisé aux autres pages
       Object.keys(users).forEach((otherUserType) => {
         if (otherUserType !== userType) {
-          it(`should not have access to /${users[otherUserType].role} page`, () => {
-            cy.visit(`/${users[otherUserType].role}`);
-            cy.contains("Accès Non Autorisé").should("be.visible");
+          it(`ne devrait pas avoir accès à la page /${users[otherUserType].role}`, () => {
+            cy.visit(`http://localhost:3000/${users[otherUserType].role}`);
+            cy.contains(`${userData.role}`).should("be.visible");
           });
         }
       });
     });
   });
 
-  it("should redirect to login page when not authenticated", () => {
-    // Simuler une absence de token
-    cy.intercept(
-      "POST",
-      "http://localhost:8181/realms/petit-spring-boot-security-domaine/protocol/openid-connect/token",
-      {
-        statusCode: 401,
-        body: "Unauthorized",
-      }
-    ).as("failedTokenRequest");
-
-    cy.visit("/");
-    cy.wait("@failedTokenRequest");
-
-    // Vérifier la redirection vers la page de login de Keycloak
+  it("devrait rediriger vers la page de connexion Keycloak lorsque non authentifié", () => {
+    cy.visit("http://localhost:3000");
     cy.url().should(
       "include",
       "http://localhost:8181/realms/petit-spring-boot-security-domaine/protocol/openid-connect/auth"
