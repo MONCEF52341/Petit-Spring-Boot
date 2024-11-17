@@ -11,6 +11,8 @@ services:
       MONGO_INITDB_DATABASE: product-service
     volumes:
       - product_mongodb_data:/data/db
+      - product_mongodb_config:/data/configdb
 
 volumes:
   product_mongodb_data:
+  product_mongodb_config:
