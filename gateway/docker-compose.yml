@@ -29,7 +29,49 @@ services:
       - keycloak_import_data:/opt/keycloak/data/
     depends_on:
       - keycloak-mysql
+  loki:
+    image: grafana/loki:main
+    command: [ '-config.file=/etc/loki/local-config.yaml' ]
+    ports:
+      - '3100:3100'
+  prometheus:
+    image: prom/prometheus:v3.0.0
+    command:
+      - --enable-feature=exemplar-storage
+      - --config.file=/etc/prometheus/prometheus.yml
+    volumes:
+      - ./docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_config:/etc/prometheus.yml:ro
+    ports:
+      - '9090:9090'
+  tempo:
+    image: grafana/tempo:2.6.1
+    command: [ '-config.file=/etc/tempo.yaml' ]
+    volumes:
+      - ./docker/tempo/tempo.yaml:/etc/tempo.yaml
+      - tempo_data:/tmp/tempo
+    ports:
+      - '3110:3100' # Tempo
+      - '9411:9411' # zipkin
+  grafana:
+    image: grafana/grafana:10.4.12
+    volumes:
+      - ./docker/grafana:/etc/grafana/provisioning/datasources:ro
+      - graphana_data:/etc/grafana/provisioning/datasources:ro
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+    ports:
+      - '3001:3000'
+
+
+
 
 volumes:
   mysql_keycloak_data:
   keycloak_import_data:
+  prometheus_config:
+  tempo_config:
+  tempo_data:
+  graphana_data:
